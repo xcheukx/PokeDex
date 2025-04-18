@@ -6,14 +6,18 @@ Learn more about the recommended Project Setup and IDE Support in the [Vue Docs 
 
 node version 18.6.0
 
+## pokeapi相关
+
 以下是关于 **Pokémon API** 的详细指南和实现方案：
 
 ---
 
 ### 一、官方 Pokémon API
-**PokeAPI** (https://pokeapi.co) 是最常用的免费 Pokémon 数据接口，支持中英文数据。
+
+**PokeAPI** (<https://pokeapi.co>) 是最常用的免费 Pokémon 数据接口，支持中英文数据。
 
 #### 基础使用示例（JavaScript）
+
 ```javascript
 // 获取皮卡丘的完整数据
 fetch('https://pokeapi.co/api/v2/pokemon/pikachu')
@@ -37,6 +41,7 @@ fetch('https://pokeapi.co/api/v2/pokemon-species/25') // 25是皮卡丘的ID
 ---
 
 ### 二、核心接口清单
+
 | 接口类型          | 示例URL                              | 返回内容                  |
 |-------------------|--------------------------------------|--------------------------|
 | 宝可梦基础信息    | `/api/v2/pokemon/{id或name}`        | 身高/体重/技能/图片URL   |
@@ -47,7 +52,9 @@ fetch('https://pokeapi.co/api/v2/pokemon-species/25') // 25是皮卡丘的ID
 ---
 
 ### 三、中文数据优化方案
+
 #### 1. 直接获取中文结果
+
 ```javascript
 // 获取妙蛙种子的中文信息（需使用species接口）
 fetch('https://pokeapi.co/api/v2/pokemon-species/1')
@@ -66,6 +73,7 @@ fetch('https://pokeapi.co/api/v2/pokemon-species/1')
 ```
 
 #### 2. 批量处理技巧
+
 ```javascript
 // 并行请求前10个宝可梦的中英文数据
 const requests = Array.from({ length: 10 }, (_, i) => 
@@ -88,7 +96,9 @@ Promise.all(requests).then(results => {
 ---
 
 ### 四、进阶使用场景
+
 #### 1. 属性相克计算器
+
 ```javascript
 // 获取火属性相克关系
 fetch('https://pokeapi.co/api/v2/type/fire')
@@ -101,6 +111,7 @@ fetch('https://pokeapi.co/api/v2/type/fire')
 ```
 
 #### 2. 进化链可视化
+
 ```javascript
 // 获取伊布的进化链（需要递归处理）
 async function getEvolutionChain(id) {
@@ -129,7 +140,9 @@ getEvolutionChain(133).then(chain => {
 ---
 
 ### 五、注意事项
+
 1. **速率限制**：每分钟最多100次请求（建议添加延迟）
+
    ```javascript
    // 请求间添加300ms延迟
    async function throttledFetch(url) {
@@ -139,6 +152,7 @@ getEvolutionChain(133).then(chain => {
    ```
 
 2. **数据缓存**：推荐使用本地缓存（如localStorage）：
+
    ```javascript
    async function getCachedPokemon(id) {
      const cacheKey = `pokemon-${id}`;
